@@ -1,0 +1,135 @@
+{% load static %}
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    
+    <style>
+        .ken{color:#fff;background-color:#fd832c;border-color:#fd832c}
+    .ken:hover{color:#fff;background-color:#eb6304;border-color:#de5e04}
+    .ken.focus,.ken:focus{-webkit-box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5);box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5)}
+    .ken.disabled,.ken:disabled{color:#fff;background-color:#fb771a;border-color:#fb771a}
+    .ken:not(:disabled):not(.disabled).active,.ken:not(:disabled):not(.disabled):active,.show>
+    .ken.dropdown-toggle{color:#fff;background-color:#de5e04;border-color:#d25904}
+    .ken:not(:disabled):not(.disabled).active:focus,
+    .ken:not(:disabled):not(.disabled):active:focus,.show>
+    .ken.dropdown-toggle:focus{-webkit-box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5);box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5)}
+    </style>
+</head>
+<body>
+    
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>Shopping cart</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+ 
+   <!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cartitem,itemvalue,price,total,id,image in mylist %}
+                 
+                            <tr>
+                                <td class="product__cart__item">
+                                    <div class="product__cart__item__pic">
+                                        <img src="{% static image %}" width="100px" height="100px" alt="">
+                                    </div>
+                                    <div class="product__cart__item__text">
+                                        <h6>{{ cartitem }}</h6>
+                                        <h5>shs {{price}}</h5>
+                                    </div>
+                                </td>
+                                <td class="quantity__item">
+                                    <div class="quantity">
+                                        <div class="" display="flex">
+                                            <form action="ToCart/" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="productid" value="{{id}}">
+                                                <input type="hidden" name="productName" value="{{cartitem}}">
+                                                <div class="cart_add">
+                                                    <button class="ken" style="width:30px;">+</button></div>
+                                            
+                                        </form>
+                                        <input type="text" value="{{ itemvalue}}">
+                                        <form action="FromCart/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="productid" value="{{id}}">
+                                            <input type="hidden" name="productvalue" value="{{itemvalue}}">
+                                            <div class="cart_add">
+                                                <button class="ken" style="width: 30px;">-</button></div>
+                                        
+                                    </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart__price">shs. {{ total }}</td>
+                                <form action="remove/" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="productname" value="{{ cartitem }}">
+                                    <input type="hidden" name="productid" value="{{id}}">
+                                <td class="cart__close"><button type="submit"> <span class="icon_close"></span> </button></td>
+                                 </form>
+                            </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                 
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn update__btn">
+                            <a href="/shop"><i class="fa fa-spinner"></i> Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="cart__total">
+                    <h6>Cart total</h6>
+                    <ul>
+                        <li>Subtotal <span>{{tt}}</span></li>
+                        <li>Total <span>{{tt}}</span></li>
+                    </ul>
+                    <a href="/checkout" class="primary-btn">Proceed to checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+</body>
+</html>
+{% include "footer.html" %}

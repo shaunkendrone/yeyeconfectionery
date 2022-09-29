@@ -1,0 +1,136 @@
+{% load static %}
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+
+    <style>
+        .ken{color:#fff;background-color:#ee7e2d;border-color:#ee7e2d}
+    .ken:hover{color:#fff;background-color:#eb6304;border-color:#de5e04}
+    .ken.focus,.ken:focus{-webkit-box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5);box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5)}
+    .ken.disabled,.ken:disabled{color:#fff;background-color:#fb771a;border-color:#fb771a}
+    .ken:not(:disabled):not(.disabled).active,.ken:not(:disabled):not(.disabled):active,.show>
+    .ken.dropdown-toggle{color:#fff;background-color:#de5e04;border-color:#d25904}
+    .ken:not(:disabled):not(.disabled).active:focus,
+    .ken:not(:disabled):not(.disabled):active:focus,.show>
+    .ken.dropdown-toggle:focus{-webkit-box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5);box-shadow:0 0 0 0.2rem rgba(252, 139, 60, 0.5)}
+    </style>
+</head>
+<body>
+    
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>Checkout</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="sales/" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <h6 class="checkout__title">Billing Details</h6>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Fist Name<span>*</span></p>
+                                        <input type="text" required name="fname">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Last Name<span>*</span></p>
+                                        <input type="text" required name="lname">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input type="text" placeholder="Street Address" class="checkout__input__add" required name="address">
+                                <!-- <input type="text" placeholder="Apartment, suite, unite ect (optinal)"> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" required name="phone">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="email" required name="email">
+                                    </div>
+                                </div>   -->
+                             
+
+                            </div>
+              
+
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h6 class="order__title">Your order</h6>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    {% for cartitem,itemvalue,price,total,id in mylist %}
+                                    <li><samp>{{ cartitem }}</samp> {{ itemvalue }} <span> {{price}}</span></li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    <li>Subtotal <span>shs. {{ tt }}</span></li>
+                                    <li>Total <span>shs. {{ tt }}</span></li>
+                                    <input type="hidden" name="total" value="{{tt}}">
+                                </ul>
+                                <h5>PLACE ORDER</h5>
+                                <P>Select method of payment</P>
+                             
+                                        
+                                    <button type="submit" class="btn ken" name="paymentmethod" value="cash">Cash On Delivery</button>
+                                
+                                <br><br>
+                                <button name="paymentmethod" class="btn ken" value="credit">
+                                    Credit Card
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+</body>
+</html>
+{% include "footer.html" %}
+
+
+
+
+
+
+

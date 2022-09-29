@@ -1,18 +1,58 @@
 {% extends "user/index.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block start %}
 
-<div class="content-section col-md-8 col-md-offset-2">
-  <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+<style>
+  #tv {
+      position: relative;
+      font-size: medium;
+      width: 550px;
+      height: auto;
+      background: transparent;
+      border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+      /* color: white; */
+      box-shadow: 20px 20px rgba(0,0,0,.15);
+      transition: all .4s ease;
+    }
+    #tv:hover {
+      border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+      box-shadow: 10px 10px rgba(0,0,0,.25);
+    }
+    /* #bg2{
+     background-image:url('{{ STATIC_URL }}images/sample.JPG'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+    background: transparent;
+    } */
+    body { 
+         background: url('{% static "images/hero/hero-1.jpg" %}') no-repeat center center fixed; 
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         /* background-position: 5px 5px; */
+        }
+</style>
+
+<!-- <marquee> -->
+<body>
+<div id="tv" style="left: 30%;">
+  <form method="POST" style="margin: 4%; padding:10%; border-radius:1%;">
     {% csrf_token %}
     <fieldset class="form-group">
       {{ form|crispy}}
     </fieldset>
     <center>
-      <button style="background: black; padding:2%; font-size: 2rem; color:white;" class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-check"></span> &nbsp; sign up</button>
+      <!-- <button style="background: black; padding:2%; font-size: 2rem; color:white;" class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-check"></span> &nbsp; sign up</button> -->
+      <button style="font-size: 2rem; padding:1%;" class="btn ken" type="submit"><span class="glyphicon glyphicon-check"></span> &nbsp; Sign up</button>
     </center>
     <br />
-    <sub><a href="{% url "login" %}" style="text-decoration: none; color: blue; padding:3%; cursor:pointer;">Already have an account ?</a></sub>
+    <!-- <sub style="text-align: left;font-size: 16px;">Already have an account,<a href="{% url 'login' %}" style="text-decoration: none; color: blue; padding:2%; cursor:pointer; margin-right:2%;">login</a></sub> -->
   </form>
 </div>
+</body>
+<!-- </marquee> -->
 {% endblock start %}

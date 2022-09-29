@@ -27,10 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'yeyeconfectionery@gmail.com'
+EMAIL_HOST_PASSWORD = 'oekqcninbrrasjgq'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'user.apps.UserConfig',
 
     'crispy_forms',
@@ -99,8 +108,13 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        "ENGINE": "django.db.backends.mysql",
+            "NAME": "interfacek",
+            "USER": "root",
+            "HOST": "localhost",
+            "PASSWORD": "",
+            "PORT": "3306",
+            "OPTIONS": {"sql_mode": "traditional"},
     }
 }
 
@@ -142,19 +156,23 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
 
 LOGIN_REDIRECT_URL ="index"
 
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-####################collage email id ##############
-EMAIL_HOST_USER="tacc2325@gmail.com"
-EMAIL_HOST_PASSWORD="#"
-##################################################
+# EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST="smtp.gmail.com"
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# ####################collage email id ##############
+# EMAIL_HOST_USER="shaunrockster@gmail.com"
+# EMAIL_HOST_PASSWORD="stethoscope99"
+# ##################################################
+
+STRIPE_SECRET_KEY = 'sk_test_51LluL3LTCpv7N9gRPkajRK7mQDH0c2lLVQvDJBcHZ1HhfGLRJCUEVy6dh1ouEEseBB6xeXpkDgAFumCuBiTXb8SI00AcJwqJkX'
+STRIPE_PUBLISHABLE_KEY= 'pk_test_51LluL3LTCpv7N9gRMKqbRf3wnQHazGCTH104oViSbdlsPlQvD9PtgfVqStvR7uRX9pSNJCg33aNCNyFTrzfnipsa00aNbjFGVa'

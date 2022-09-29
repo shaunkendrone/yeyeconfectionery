@@ -1,5 +1,5 @@
 # User login and register system implementation in django
-![](https://img.shields.io/github/repo-size/itsvinayak/user_login_and_register.svg?label=Repo%20size&style=flat-square)&nbsp;![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square)
+![](https://img.shields.io/github/repo-size/itsvinayak/yeye_confectionery.svg?label=Repo%20size&style=flat-square)&nbsp;![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square)
 &nbsp;
 
 
@@ -43,21 +43,21 @@ here <b>env/</b> folder contains all dependencies
 <a href="https://www.geeksforgeeks.org/dockerizing-a-simple-django-app/" target="_black">Dockerizing a simple Django app</a>
 
 pull docker image using
-<pre>$ sudo docker pull itssvinayak/user_login_and_register:latest</pre>
+<pre>$ sudo docker pull itssvinayak/yeye_confectionery:latest</pre>
 
 run docker file using
-<pre>$ sudo docker run -p 8000:8000 user_login_and_register</pre>
+<pre>$ sudo docker run -p 8000:8000 yeye_confectionery</pre>
 
 ## Running locally
 
 <ol>
   <li>
       clone repository
-      <pre>$ git clone https://github.com/itsvinayak/user_login_and_register.git</pre>
+      <pre>$ git clone https://github.com/itsvinayak/yeye_confectionery.git</pre>
   </li>
   <li>
      make database settings and connect it to your local database
-    <pre>$ cd ./user_login_and_register/project </pre>
+    <pre>$ cd ./yeye_confectionery/project </pre>
     open <b>settings.py</b> file
     <pre>
       DATABASES = {
@@ -84,7 +84,7 @@ run docker file using
   </li>
  </ol>
 
-![alt text](https://github.com/itsvinayak/user_login_and_register/blob/master/Screenshot%20from%202019-07-23%2007-26-47.png)
+![alt text](https://github.com/itsvinayak/yeye_confectionery/blob/master/Screenshot%20from%202019-07-23%2007-26-47.png)
 
 
 ---
@@ -104,11 +104,11 @@ read more at <a href="https://www.geeksforgeeks.org/implement-token-authenticati
 ---
 
 
-![login](https://github.com/itsvinayak/user_login_and_register/blob/master/Screenshot%20from%202019-07-23%2007-27-12.png)
+![login](https://github.com/itsvinayak/yeye_confectionery/blob/master/Screenshot%20from%202019-07-23%2007-27-12.png)
 
 
 ## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fitsvinayak%2Fuser_login_and_register.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fitsvinayak%2Fuser_login_and_register?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fitsvinayak%2Fyeye_confectionery.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fitsvinayak%2Fyeye_confectionery?ref=badge_large)
 
 
 

@@ -1,20 +1,57 @@
 {% extends "user/index.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block start %}
 
- <div class="content-section col-md-8 col-md-offset-2">
+<!-- <link rel="stylesheet" href="{% static 'styles/mystyle.css' %}" /> -->
+<style>
+  /* .got{
+    background-image: "{% static 'images/hero/hero-1.jpg' %}" !important;
+  } */
+  #tv {
+      position: relative;
+      font-size:medium;
+      width: 550px;
+      height: 350px;
+      background: transparent;
+      border-radius: 10% 10% 10% 10% / 10% 10% 10% 10% ;
+      /* color: white; */
+      box-shadow: 20px 20px rgba(0,0,0,.15);
+      transition: all .4s ease;
+    }
+    #tv:hover {
+      border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+      box-shadow: 10px 10px rgba(0,0,0,.25);
+    }
+    body { 
+         background: url('{% static "images/hero/hero-1.jpg" %}') no-repeat center center fixed; 
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         
+        }
+</style>
+
+<body>
+  
+
+ <div id="tv" style="left: 30%;">
   <center>
-  <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+  <form method="POST" style="margin: 4%; padding:10%; border-radius:1%;">
     {% csrf_token %}
     <fieldset class="form-group">
       {{ form|crispy}}
     </fieldset>
    <center>
-    <button style="background: black; font-size: 2rem; padding:1%;" class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-log-in"></span> &nbsp; login</button>
+    <button style="font-size: 2rem; padding:1%;" class="btn ken" type="submit"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Login</button>
   </center>
   <br/>
-  <sub style="text-align: left;"><a href="{% url 'register' %}" style="text-decoration: none; color: blue; padding:2%; cursor:pointer; margin-right:2%;">don't have account,sign up</a></sub>
+  <!-- <sub style="text-align: left;font-size: 16px;">Don't have an account,<a href="{% url 'register' %}" style="text-decoration: none; color: blue; padding:2%; cursor:pointer; margin-right:2%;">signup</a></sub> -->
   </form>
 </center>
  </div>
+  
+</div> 
+</body>
 {% endblock start %}

@@ -1,0 +1,181 @@
+{% load static %}
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script> 
+      <link href="https://cdn.jsdelivr.net/npm/bootsopium2ap@5.1.3/dist/css/bootsopium2ap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootsopium2ap@5.1.3/dist/js/bootsopium2ap.bundle.min.js"></script>
+      <link href="https://gitcdn.github.io/bootsopium2ap-toggle/2.2.2/css/bootsopium2ap-toggle.min.css" rel="stylesheet">
+      <script src="https://gitcdn.github.io/bootsopium2ap-toggle/2.2.2/js/bootsopium2ap-toggle.min.js"></script> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+      <style>
+        .kint{
+            background: none!important;
+            border: none;
+            color: #111111;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            border-bottom: 2px solid #f08632;
+            padding-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .category_container{
+            width: 800px;
+            display: block;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .category_item{
+            float: left;
+            width: 20%;
+            background-color: black;
+            padding: 20px 0;
+            text-align: center;
+            cursor: pointer;
+            font-size: 15px;
+            color: white;
+        }
+        
+        .category_item:hover{
+            background-color: #f08632;
+            color: white;
+        }
+
+        .block_container{
+            width: 800px;
+            display: block;
+            margin: 0 auto;
+            box-sizing: border-box;
+
+        }
+        .product__item{
+            box-sizing: border-box;
+            float: left;
+            padding: 10px;
+            width: 25%;
+            transition: all 0.4s ease-in-out;
+        }
+        .hide{
+            transform: scale(0);
+            width: 0;
+            padding: 0;
+            transition: all 0.4s ease-in-out;
+        }
+      </style>
+
+      <script>
+        $(document).ready(function(){
+            $(".category_item").click(function(){
+                var category = $(this).attr('id');
+                // alert(category);
+                if(category == 'all'){
+                    $('.product__item').addClass('hide');
+                    setTimeout(function(){
+                        $('.product__item').removeClass('hide');
+                    }, 300);
+                } else{
+                    $('.product__item').addClass('hide');
+                    setTimeout(function(){
+                        $('.' + category).removeClass('hide');
+                    }, 300);
+                }
+
+            });
+        });
+      </script>
+</head>
+<body>
+    
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>Shop</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="shop__option">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7">
+                        <div class="shop__option__search">
+                            <div class="category_container">
+                                <p class="category_item" id="all">ALL</p>
+                            {% for type in types %}
+                            <p class="category_item" id="{{ type.name}}">{{ type.name}}</p>
+                            {% endfor %}
+                        </div>
+                            <form action="#">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row" id="myTable">
+                {% for item,ctype in mylist %}
+                    <div class="product__item {{ ctype }}" id="myt">
+                        <div class="product__item__pic set-bg" id="opium2" data-setbg="{% static item.category_image %}">
+                            <div class="product__label">
+                                <span>{{ctype}}</span>
+                            </div>
+                        </div>
+                        <div class="product__item__text" id="opium2">
+                            <h6 id="opium2"><a href="{% url 'shopdetails' item.id %}">{{item.name}}</a></h6>
+                            <div class="product__item__price">shs{{item.selling_price}}</div>
+                            <form action="ToCart/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="productName" value="{{item.name}}">
+                                <input type="hidden" name="productid" value="{{item.id}}">
+                                <div class="cart_add">
+                                <input type="submit" class="kint" value="Add to cart">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    <!-- Shop Section End -->
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable #myt ").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% include "footer.html" %}
