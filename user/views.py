@@ -35,6 +35,7 @@ def index(request):
 
 cartnumber=0
 
+#method for landing page
 def home(request):
     cartnumber=0
     items = CCategory.objects.all().values()
@@ -49,6 +50,7 @@ def home(request):
         except:
             pass
         finally:
+            #if user is authenticated, get items from cart database, else use cart items in cookies
             if request.user.is_authenticated:
                 usernow = request.user
                 cartitems= Cart.objects.filter(user=usernow.id).count()
@@ -133,6 +135,7 @@ def Login(request):
     form = AuthenticationForm()
     return render(request, 'user/login.html', {'form':form,'title':'log in'})
 
+#cart
 def cart(request):
     template = loader.get_template('shopping-cart.html')
     items = CCategory.objects.all()
@@ -192,6 +195,8 @@ def cart(request):
     }
     return HttpResponse(template.render(cont1, request))
 
+
+#checkout, non authenticanted users cannot access checkout
 def checkout(request):
     
     if request.user.is_authenticated:
@@ -234,6 +239,7 @@ def checkout(request):
         return redirect('/register')
 
 
+#shop
 def shop(request):
     cartnumber=0
     template = loader.get_template('shop.html')
@@ -271,13 +277,8 @@ def shop(request):
     }
     return HttpResponse(template.render(cont3, request))
 
-def details(request):
-    template = loader.get_template('shop-details.html')
-    cont4 = {
-    'username': request.POST.get('username')
-  }
-    return HttpResponse(template.render(cont4, request))
 
+#about page
 def about(request):
     template = loader.get_template('about.html')
     ctypes = CTypes.objects.all()
@@ -307,6 +308,7 @@ def about(request):
   }
     return HttpResponse(template.render(cont5, request))
 
+#contact page
 def contact(request):
     template = loader.get_template('contact.html')
     ctypes = CTypes.objects.all()
@@ -336,6 +338,7 @@ def contact(request):
   }
     return HttpResponse(template.render(cont6, request))
 
+#adding items to cart/incrementing quantity on cart items
 def ToCart(request):
     productid = request.POST['productid']
     if request.user.is_authenticated:
@@ -390,6 +393,7 @@ def ToCart(request):
         return response
 
 
+#deducting quantity items from the cart
 def FromCart(request):
     value = request.POST['productvalue']
     productid = request.POST['productid']
@@ -440,6 +444,7 @@ def FromCart(request):
         
         return response
 
+#removing items from the cart
 def remove(request):
    cartname = request.POST['productname']
    productid = request.POST['productid']
@@ -460,6 +465,7 @@ def remove(request):
         return response
 
 
+#showing items according to their category
 def shopview(request, id):
     if(CTypes.objects.get(id=id)):
         items = CCategory.objects.filter(types_id=id)
@@ -484,6 +490,7 @@ def shopview(request, id):
         messages.warning(request, "No such category found")
         return redirect('shop')
 
+#showing items of a particular item
 def shopdetails(request,id):
     items = CCategory.objects.get(id=id)
     itemtypes = CCategory.objects.filter(types_id=items.types_id)
@@ -510,6 +517,7 @@ def shopdetails(request,id):
     'item' :items, 'cartnumber':cartnumber, 'itemtypes':itemtypes}
     return HttpResponse(template.render(context, request))
 
+#adding bought items to sales table from cart table
 def sales(request):
     usernow = request.user
     userid = usernow.id
@@ -565,6 +573,7 @@ class HomePageView(TemplateView):
         context['key']=settings.STRIPE_PUBLISHABLE_KEY
         return context
 
+#credit card payment and adding to sales table
 def charge(request):
     if request.method == 'POST':
         tt = request.COOKIES['totalyeye']
